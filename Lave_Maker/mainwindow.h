@@ -9,6 +9,8 @@
 #include <QMessageBox>
 #include <QMap>
 #include <QtGui>
+#include <QPair>
+#include <tuple>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,10 +25,11 @@ public:
     ~MainWindow();
 
 public slots:
-    void PrintData(QMap<QString, QString> data);
+    void PrintData(std::tuple <QPair<QString, QString>, QMap<QString, QString>>);
 
 private slots:
     void on_actionOpen_triggered();
+    bool IsDigitalOnly(QString);
 
 private:
     Ui::MainWindow *ui;

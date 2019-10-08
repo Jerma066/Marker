@@ -13,11 +13,29 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::PrintData(QMap<QString, QString> data)
+void MainWindow::PrintData(std::tuple <QPair<QString, QString>, QMap<QString, QString>> allData)
 {
+    QPair<QString, QString> labels;
+    QMap<QString, QString> data;
+
+    std::tie(labels, data) = allData;
+
+    qDebug() << labels;
+
     for(auto& key: data.keys()){
         qDebug() << "X: " << key << "Y: " << data[key];
     }
+}
+
+bool MainWindow::IsDigitalOnly(QString str)
+{
+    foreach(QChar c, str)
+    {
+        if(c < '0' || c > '9')
+            return false;
+    }
+
+    return true;
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -38,30 +56,42 @@ void MainWindow::on_actionOpen_triggered()
             QAxObject* rows = sheet->querySubObject("UsedRange")->querySubObject("Rows");
             int countRows = rows->property("Count").toInt();
 
-            QString d_key;
-            QString d_value;
+            QString d_key = "";
+            QString d_value = "";
 
             QMap<QString, QString> data;
 
-            for ( int row = 0; row < countRows; row++ ){
-                for ( int column = 0; column < countCols; column++ ){
-                    QString value = sheet->querySubObject("Cells(int,int)", row + 1, column + 1)->property("Value").toString();
+            d_key   = sheet->querySubObject("Cells(int,int)", 1, 1)->property("Value").toString();
+            d_value = sheet->querySubObject("Cells(int,int)", 1, 2)->property("Value").toString();
+
+            QPair<QString, QString> labels;
+            if(!IsDigitalOnly(d_key) || !IsDigitalOnly(d_value)){
+                labels = {d_key, d_value};
+
+            }
+            else {
+                data.insert(d_key, d_value);
+            }
+
+            for ( int row = 1; row < countRows; row++ ){
+                for ( int column = 1; column < countCols; column++ ){
 
                     if(column == 0){
-                        d_key = value;
+                        d_key = sheet->querySubObject("Cells(int,int)", row + 1, column + 1)->property("Value").toString();
                     }
                     else if(column == 1){
-                        d_value = value;
+                        d_value = sheet->querySubObject("Cells(int,int)", row + 1, column + 1)->property("Value").toString();
                     }
                 }
 
                 data.insert(d_key, d_value);
             }
 
+            PrintData(std::tie(labels, data));
+
             workbook->dynamicCall("Close()");
             excel->dynamicCall("Quit()");
 
-            PrintData(data);
         }
         else{
             QMessageBox::critical(this, tr("Error!"), tr("This is incorrect file!\n"
