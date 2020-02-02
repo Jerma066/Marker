@@ -5,12 +5,12 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QDebug>
-#include <QAxObject>
 #include <QMessageBox>
 #include <QMap>
-#include <QtGui>
 #include <QPair>
 #include <tuple>
+
+#include "filereader.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,11 +25,10 @@ public:
     ~MainWindow();
 
 public slots:
-    void PrintData(std::tuple <QPair<QString, QString>, QMap<QString, QString>>);
+    void PrintData(std::tuple <QPair<QString, QString>, QMap<float, float>>);
 
 private slots:
     void on_actionOpen_triggered();
-    bool IsDigitalOnly(QString);
 
 private:
     Ui::MainWindow *ui;
