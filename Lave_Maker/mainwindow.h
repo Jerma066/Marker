@@ -10,7 +10,7 @@
 #include <QPair>
 #include <tuple>
 
-#include "filereader.h"
+#include "filereader/filereader.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

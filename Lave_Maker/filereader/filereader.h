@@ -7,6 +7,8 @@
 #include <memory>
 #include <QDebug>
 #include <QObject>
+#include <fstream>
+#include <sstream>
 
 enum class Orientation {
     Vertical,
@@ -57,12 +59,10 @@ public:
     XLSX_FileReader(const QString&);
     ~XLSX_FileReader() override;
 
+    virtual QPair<QString, QString> RecLabels() override;
     virtual Orientation RecDataOrienataion() override;
     virtual QMap<float, float> RecData() override;
-    virtual QPair<QString, QString> RecLabels() override;
     virtual void CloseFile() override;
-
-
 
 private:
     QAxObject* excel;
@@ -70,6 +70,29 @@ private:
     QAxObject* sheet;
     QAxObject* columns;
     QAxObject* rows;
+
+    int countCols;
+    int countRows;
+};
+
+// Класс ридера txt файла
+class TXT_FileReader: public FileReader
+{
+public:
+    TXT_FileReader(const QString&);
+    ~TXT_FileReader() override;
+
+    virtual QPair<QString, QString> RecLabels() override;
+    virtual Orientation RecDataOrienataion() override;
+    virtual QMap<float, float> RecData() override;
+    virtual void CloseFile() override;
+
+private:
+    int CountNumberOfCols();
+    int CountNumberOfRows();
+
+private:
+    std::ifstream f_in;
 
     int countCols;
     int countRows;
