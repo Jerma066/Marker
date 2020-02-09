@@ -23,7 +23,7 @@ void MainWindow::PrintData(std::tuple <QPair<QString, QString>, QMap<float, floa
     qDebug() << labels;
 
     for(auto& key: data.keys()){
-        qDebug() << "X: " << key << "Y: " << data[key];
+        qDebug() << AS_KV(key) <<" ; "<< AS_KV(data[key]);
     }
 }
 

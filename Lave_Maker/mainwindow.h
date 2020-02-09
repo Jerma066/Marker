@@ -12,6 +12,8 @@
 
 #include "filereader/filereader.h"
 
+#define AS_KV(x)  #x << " = " << x
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
