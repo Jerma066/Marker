@@ -10,7 +10,7 @@ float MSE(std::function<float (float)> dependance, QMap<float, float> values)
     for(auto pair = values.begin(); pair != values.end(); pair++){
         error += pow((dependance(pair.key()) - pair.value()), 2);
     }
-    error /= n;
+    
     return error/n;
 }
 
@@ -24,6 +24,6 @@ float MAE(std::function<float (float)> dependance, QMap<float, float> values)
     for(auto pair = values.begin(); pair != values.end(); pair++){
         error += abs((dependance(pair.key()) - pair.value()));
     }
-    error /= n;
+    
     return error/n;
 }
