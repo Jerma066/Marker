@@ -20,8 +20,29 @@ LinearDependance::LinearDependance(QMap<float, float> data,
 //--написать ее реализацию
 QPair<float, float> ObshefizCoefMethod(QMap<float, float> data)
 {
-    float a = 0;
-    float b = 0;
+    QMapIterator<float, float> i(data);
+    int n = data.size();
+    float mean_y = 0;
+    float mean_x = 0;
+    float mean_xy = 0;
+    float mean_x2 = 0;
+
+    while(i.hasNext())
+    {
+        i.next();
+
+        mean_y += i.value();
+        mean_x += i.key();
+        mean_xy += i.key() * i.value();
+        mean_x2 += i.key() * i.key();
+    }
+    mean_y /= n;
+    mean_x /= n;
+    mean_xy /= n;
+    mean_x2 /= n;
+
+    float a = (mean_xy - (mean_x*mean_y)) / (mean_x2 - (mean_x*mean_x));
+    float b = mean_y - (a * mean_x);
 
     return qMakePair(a, b);
 }
