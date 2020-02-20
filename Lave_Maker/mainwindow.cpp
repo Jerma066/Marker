@@ -13,17 +13,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::PrintData(std::tuple <QPair<QString, QString>, QMap<float, float>> allData)
+void MainWindow::PrintData(std::tuple <QPair<QString, QString>, std::map<float, float>> allData)
 {
     QPair<QString, QString> labels;
-    QMap<float, float> data;
+    std::map<float, float> data;
 
     std::tie(labels, data) = allData;
 
     qDebug() << labels;
 
-    for(auto& key: data.keys()){
-        qDebug() << AS_KV(key) <<" ; "<< AS_KV(data[key]);
+    for(auto it = data.begin(); it != data.end(); it++){
+        qDebug() << AS_KV(it->first) <<" ; "<< AS_KV(it->second);
     }
 }
 
@@ -36,6 +36,6 @@ void MainWindow::on_actionOpen_triggered()
     std::shared_ptr<FileReader> fr = ReadFile(path, suffix);
 
     QPair<QString, QString> labels = fr->labels();
-    QMap<float, float> data = fr->data();
+    std::map<float, float> data = fr->data();
     PrintData(std::tie(labels, data));
 }

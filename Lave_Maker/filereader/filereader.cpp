@@ -11,7 +11,7 @@ FileReader::~FileReader()
 {
 }
 
-QMap<float, float> FileReader::data() const
+std::map<float, float> FileReader::data() const
 {
     return _data;
 }
@@ -49,9 +49,9 @@ Orientation EmptyFileReader::RecDataOrienataion()
     return _orientation;
 }
 
-QMap<float, float> EmptyFileReader::RecData()
+std::map<float, float> EmptyFileReader::RecData()
 {
-    _data.insert(0,0);
+    _data.insert(std::make_pair(0,0));
     this->CloseFile();
     return _data;
 }
@@ -133,7 +133,7 @@ Orientation XLSX_FileReader::RecDataOrienataion()
     }
 }
 
-QMap<float, float> XLSX_FileReader::RecData()
+std::map<float, float> XLSX_FileReader::RecData()
 {
     QString d_key, d_value;
 
@@ -148,7 +148,7 @@ QMap<float, float> XLSX_FileReader::RecData()
                 }
             }
             if(IsDigitalOnly(d_key) && IsDigitalOnly(d_value)){
-                _data.insert(d_key.toFloat(), d_value.toFloat());
+                _data.insert( std::make_pair(d_key.toFloat(), d_value.toFloat()) );
             }
         }
     }
@@ -165,7 +165,7 @@ QMap<float, float> XLSX_FileReader::RecData()
                 }
             }
             if(IsDigitalOnly(d_key) && IsDigitalOnly(d_value)){
-                _data.insert(d_key.toFloat(), d_value.toFloat());
+                _data.insert( std::make_pair(d_key.toFloat(), d_value.toFloat()) );
             }
         }
     }
@@ -279,7 +279,7 @@ Orientation TXT_FileReader::RecDataOrienataion()
     }
 }
 
-QMap<float, float> TXT_FileReader::RecData()
+std::map<float, float> TXT_FileReader::RecData()
 {
     QString d_key, d_value;
     if(_orientation == Orientation::Horizontal){
@@ -294,7 +294,7 @@ QMap<float, float> TXT_FileReader::RecData()
             QString x = QString::fromStdString(d_key);
             QString y = QString::fromStdString(d_value);
             if(IsDigitalOnly(x) && IsDigitalOnly(y)){
-                _data.insert(x.toFloat(), y.toFloat());
+                _data.insert( std::make_pair(x.toFloat(), y.toFloat()) );
             }
         }
     }
@@ -308,7 +308,7 @@ QMap<float, float> TXT_FileReader::RecData()
             QString x = QString::fromStdString(d_key);
             QString y = QString::fromStdString(d_value);
             if(IsDigitalOnly(x) && IsDigitalOnly(y)){
-                _data.insert(x.toFloat(), y.toFloat());
+                _data.insert( std::make_pair(x.toFloat(), y.toFloat()) );
             }
         }
     }

@@ -6,7 +6,7 @@
 #include <QFileInfo>
 #include <QDebug>
 #include <QMessageBox>
-#include <QMap>
+#include <map>
 #include <QPair>
 #include <tuple>
 
@@ -27,7 +27,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void PrintData(std::tuple <QPair<QString, QString>, QMap<float, float>>);
+    void PrintData(std::tuple <QPair<QString, QString>, std::map<float, float>>);
 
 private slots:
     void on_actionOpen_triggered();

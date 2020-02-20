@@ -2,7 +2,7 @@
 #define FILEREADER_H
 
 #include <QString>
-#include <QMap>
+#include <map>
 #include <QAxObject>
 #include <memory>
 #include <QDebug>
@@ -22,18 +22,18 @@ public:
     FileReader(const QString&);
     virtual ~FileReader();
 
-    QMap<float, float> data() const;
+    std::map<float, float> data() const;
     Orientation orientation() const;
     QPair<QString, QString> labels() const;
     QString path() const;
 
     virtual QPair<QString, QString> RecLabels() = 0;
     virtual Orientation RecDataOrienataion() = 0;
-    virtual QMap<float, float> RecData() = 0;
+    virtual std::map<float, float> RecData() = 0;
     virtual void CloseFile() = 0;
 
 protected:
-    QMap<float, float> _data;
+    std::map<float, float> _data;
     QString _fpath;
     Orientation _orientation;
     QPair<QString, QString> _labels;
@@ -47,7 +47,7 @@ public:
 
     virtual QPair<QString, QString> RecLabels() override;
     virtual Orientation RecDataOrienataion() override;
-    virtual QMap<float, float> RecData() override;
+    virtual std::map<float, float> RecData() override;
     virtual void CloseFile() override;
 };
 
@@ -61,7 +61,7 @@ public:
 
     virtual QPair<QString, QString> RecLabels() override;
     virtual Orientation RecDataOrienataion() override;
-    virtual QMap<float, float> RecData() override;
+    virtual std::map<float, float> RecData() override;
     virtual void CloseFile() override;
 
 private:
@@ -84,7 +84,7 @@ public:
 
     virtual QPair<QString, QString> RecLabels() override;
     virtual Orientation RecDataOrienataion() override;
-    virtual QMap<float, float> RecData() override;
+    virtual std::map<float, float> RecData() override;
     virtual void CloseFile() override;
 
 private:
