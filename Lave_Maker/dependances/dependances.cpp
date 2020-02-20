@@ -9,7 +9,7 @@ Dependance::Dependance(std::map<float, float> data,
     _coefficients(coef_meth(_data)),
     _error_func(error_func)
 {
-    std::vector<float> coefs = _coefficients.toStdVector();
+    std::vector<float> coefs = _coefficients;
 
     _dependance = [coefs](float x) {
         float answer = 0;

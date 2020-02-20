@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    dependances/coefficients_functions.cpp \
     dependances/dependances.cpp \
     dependances/errors.cpp \
     filereader/filereader.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    dependances/coefficients_functions.h \
     dependances/dependances.h \
     dependances/errors.h \
     filereader/filereader.h \

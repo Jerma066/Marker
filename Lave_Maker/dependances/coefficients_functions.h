@@ -2,7 +2,6 @@
 #define COEFFICIENTS_FUNCTIONS_H
 
 #include <functional>
-#include <QPair>
 #include <vector>
 #include <map>
 
