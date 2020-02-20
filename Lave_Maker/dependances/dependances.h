@@ -9,7 +9,7 @@
 class Dependance
 {
 public:
-    Dependance(std::map<float, float>,  std::function<std::vector<float> (std::map<float, float>)>,
+    Dependance(std::map<float, float>,  std::function<std::vector<float> (const std::map<float, float>&)>,
                std::function<float( std::function<float(float x)>, std::map<float, float> )>);
 
 private:

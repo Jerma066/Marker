@@ -3,7 +3,7 @@
 
 // Класс реализующий зависимость
 Dependance::Dependance(std::map<float, float> data,
-                       std::function<std::vector<float> (std::map<float, float>)> coef_meth = linear_coef_methond,
+                       std::function<std::vector<float> (const std::map<float, float>&)> coef_meth = linear_coef_method,
                        std::function<float (std::function<float (float)>, std::map<float, float>)> error_func = MSE):
     _data(data),
     _coefficients(coef_meth(_data)),

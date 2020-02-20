@@ -1,6 +1,6 @@
 ﻿#include "coefficients_functions.h"
 
-std::vector<float> linear_coef_methond(const std::map<float, float>& data)
+std::vector<float> linear_coef_method(const std::map<float, float>& data)
 {
     std::vector<float> answer;
 
@@ -17,13 +17,13 @@ std::vector<float> linear_coef_methond(const std::map<float, float>& data)
         mean_x2 += it->first * it->first;
     }
 
-    mean_y /= n;
+    /*mean_y /= n;
     mean_x /= n;
     mean_xy /= n;
-    mean_x2 /= n;
+    mean_x2 /= n;*/
 
-    float a = (mean_xy - (mean_x*mean_y)) / (mean_x2 - (mean_x*mean_x));
-    float b = mean_y - (a * mean_x);
+    float a = (n*mean_xy - (mean_x*mean_y)) / (n*mean_x2 - (mean_x*mean_x));
+    float b = (mean_y - (a * mean_x))/n;
 
     answer.push_back(a);
     answer.push_back(b);
