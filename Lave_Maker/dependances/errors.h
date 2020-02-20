@@ -2,9 +2,9 @@
 #define ERRORS_H
 
 #include <functional>
-#include <QMap>
+#include <map>
 
-float MSE(std::function<float(float x)>, QMap<float, float>);
-float MAE(std::function<float(float x)>, QMap<float, float>);
+float MSE(std::function<float(float x)>, std::map<float, float>);
+float MAE(std::function<float(float x)>, std::map<float, float>);
 
 #endif // ERRORS_H
