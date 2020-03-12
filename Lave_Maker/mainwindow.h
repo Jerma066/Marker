@@ -11,6 +11,7 @@
 #include <tuple>
 
 #include "filereader/filereader.h"
+#include "dataTableDialog/datatabledialog.h"
 
 #define AS_KV(x)  #x << " = " << x
 
@@ -34,5 +35,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    dataTableDialog* dt;
 };
 #endif // MAINWINDOW_H
