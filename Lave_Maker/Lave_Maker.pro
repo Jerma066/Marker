@@ -17,17 +17,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    dataTableDialog/datatabledialog.cpp \
+    dataTableDialog/vecOperators/vecoperators.cpp \
     dependances/errors.cpp \
     filereader/filereader.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    dataTableDialog/datatabledialog.h \
+    dataTableDialog/vecOperators/vecoperators.h \
     dependances/errors.h \
     filereader/filereader.h \
     mainwindow.h
 
 FORMS += \
+    dataTableDialog/datatabledialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

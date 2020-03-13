@@ -35,14 +35,15 @@ void MainWindow::on_actionOpen_triggered()
 
     std::shared_ptr<FileReader> fr = ReadFile(path, suffix);
 
-    /*
-    QPair<QString, QString> labels = fr->labels();
-    std::map<float, float> data = fr->data();
-    PrintData(std::tie(labels, data));
-    */
-
     std::vector<std::vector<float>> test = {{1, 2, 3},
                                             {4, 5, 6},
                                             {7, 8 ,9}};
-    dt = new dataTableDialog(test);
+
+    //Блок вызова диалогового окна
+    dataTableDialog dt(test, this);
+    if (dt.exec() == QDialog::Accepted)
+    {
+        dataTable data = dt.getDataTable();
+        //TODO: дальнейшая обработка данных.
+    }
 }
