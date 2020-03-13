@@ -18,7 +18,7 @@ class TableDinamicWidgets{
 public:
     TableDinamicWidgets();
     TableDinamicWidgets(QWidget*, QHBoxLayout*, QComboBox*, QSpinBox*);
-    ~TableDinamicWidgets();
+    ~TableDinamicWidgets() = default;
 
     QWidget* general_wid;
     QHBoxLayout* wid_layout;
@@ -39,6 +39,9 @@ class dataTableDialog : public QDialog
 public:
     explicit dataTableDialog(dataTable& data, QWidget *parent = nullptr);
     ~dataTableDialog();
+
+public:
+   dataTable getDataTable();
 
 private slots:
     void on_okButton_clicked();

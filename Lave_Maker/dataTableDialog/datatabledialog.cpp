@@ -9,7 +9,7 @@ dataTableDialog::dataTableDialog(dataTable& data, QWidget *parent) :
 {
     ui->setupUi(this);
     this->createTableVidget(_data);
-    this->show();
+    connect(ui->okButton, SIGNAL(clicked()), SLOT(accept()));
 }
 
 dataTableDialog::~dataTableDialog()
@@ -20,9 +20,14 @@ dataTableDialog::~dataTableDialog()
         delete wid->wid_layout;
         delete wid->general_wid;
     }
-    topTableWidgets.clear();
 
-     delete ui;
+    topTableWidgets.clear();
+    delete ui;
+}
+
+dataTable dataTableDialog::getDataTable()
+{
+    return _data;
 }
 
 void dataTableDialog::createTableVidget(const dataTable& data)
@@ -78,7 +83,8 @@ void dataTableDialog::TableElementChanged(int row, int column)
 
 void dataTableDialog::on_okButton_clicked()
 {
-    // TODO сформировать данные для построения графика;
+    // TODO: Проверка корректности заполненых full_label-ов
+    // TODO: Дальнешая обработка данных
     for(auto wid_elem = topTableWidgets.begin();
         wid_elem < topTableWidgets.end(); wid_elem++)
     {
@@ -86,6 +92,8 @@ void dataTableDialog::on_okButton_clicked()
     }
 
     // Проверка изменений данных
+    // TODO: высплывающее диалоговое окно оповещающее об
+    //       изменении данных
     if(_data != file_data){
         qDebug() << "The read data has been changed."\
                     "\nWant to overwrite a read file?";
@@ -117,9 +125,4 @@ TableDinamicWidgets::TableDinamicWidgets(QWidget* g_w, QHBoxLayout* w_l, QComboB
     wid_comboBox(w_cb),
     wid_spinBox(w_sb)
 {
-}
-
-TableDinamicWidgets::~TableDinamicWidgets()
-{
-
 }
