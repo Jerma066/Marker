@@ -19,24 +19,20 @@ enum class Orientation {
 class FileReader
 {
 public:
-    FileReader(const QString&);
+    FileReader(const QString&, Orientation);
     virtual ~FileReader();
 
-    std::map<float, float> data() const;
+    std::vector<std::vector<float>> data() const;
     Orientation orientation() const;
-    QPair<QString, QString> labels() const;
     QString path() const;
 
-    virtual QPair<QString, QString> RecLabels() = 0;
-    virtual Orientation RecDataOrienataion() = 0;
-    virtual std::map<float, float> RecData() = 0;
+    virtual std::vector<std::vector<float>> RecData() = 0;
     virtual void CloseFile() = 0;
 
 protected:
-    std::map<float, float> _data;
+    std::vector<std::vector<float>> _data;
     QString _fpath;
-    Orientation _orientation;
-    QPair<QString, QString> _labels;
+    Orientation _orientation; 
 };
 
 
@@ -45,9 +41,7 @@ class EmptyFileReader: public FileReader
 public:
     EmptyFileReader();
 
-    virtual QPair<QString, QString> RecLabels() override;
-    virtual Orientation RecDataOrienataion() override;
-    virtual std::map<float, float> RecData() override;
+    virtual std::vector<std::vector<float>> RecData() override;
     virtual void CloseFile() override;
 };
 
@@ -56,12 +50,10 @@ public:
 class XLSX_FileReader: public FileReader
 {
 public:
-    XLSX_FileReader(const QString&);
+    XLSX_FileReader(const QString&, Orientation);
     ~XLSX_FileReader() override;
 
-    virtual QPair<QString, QString> RecLabels() override;
-    virtual Orientation RecDataOrienataion() override;
-    virtual std::map<float, float> RecData() override;
+    virtual std::vector<std::vector<float>> RecData() override;
     virtual void CloseFile() override;
 
 private:
@@ -71,31 +63,29 @@ private:
     QAxObject* columns;
     QAxObject* rows;
 
-    int countCols;
-    int countRows;
+    size_t countCols;
+    size_t countRows;
 };
 
 // Класс ридера txt файла
 class TXT_FileReader: public FileReader
 {
 public:
-    TXT_FileReader(const QString&);
+    TXT_FileReader(const QString&, Orientation);
     ~TXT_FileReader() override;
 
-    virtual QPair<QString, QString> RecLabels() override;
-    virtual Orientation RecDataOrienataion() override;
-    virtual std::map<float, float> RecData() override;
+    virtual std::vector<std::vector<float>> RecData() override;
     virtual void CloseFile() override;
 
 private:
-    int CountNumberOfCols();
-    int CountNumberOfRows();
+    size_t CountNumberOfCols();
+    size_t CountNumberOfRows();
 
 private:
     std::ifstream f_in;
 
-    int countCols;
-    int countRows;
+    size_t countCols;
+    size_t countRows;
 };
 
 // Класс сигналов
@@ -111,7 +101,7 @@ signals:
 };
 
 bool IsDigitalOnly(QString);
-std::shared_ptr<FileReader> ReadFile(QString path, QString suffix);
+std::shared_ptr<FileReader> ReadFile(QString path, QString suffix, Orientation orientation);
 void readF(std::shared_ptr<FileReader>);
 
 #endif // FILEREADER_H
