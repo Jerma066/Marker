@@ -29,6 +29,7 @@ void MainWindow::PrintData(std::tuple <QPair<QString, QString>, std::map<float, 
 
 void MainWindow::on_actionOpen_triggered()
 {
+
     QString path = QFileDialog::getOpenFileName(nullptr, tr("Open Dialog"), "", "XLSX (* .xlsx);;Text Files (*.txt)");
     QFileInfo file_info(path);
     QString suffix = file_info.suffix();
