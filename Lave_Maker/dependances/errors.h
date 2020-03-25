@@ -4,9 +4,7 @@
 #include <functional>
 #include <QMap>
 #include <cmath>
-=======
 #include <map>
->>>>>>> dependances_branch
 
 float MSE(std::function<float(float x)>, std::map<float, float>);
 float MAE(std::function<float(float x)>, std::map<float, float>);

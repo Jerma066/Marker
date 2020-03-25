@@ -17,31 +17,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-<<<<<<< HEAD
+    GraphWindow/GraphObject/graphobjects.cpp \
+    GraphWindow/graphwindow.cpp \
     dataTableDialog/datatabledialog.cpp \
     dataTableDialog/vecOperators/vecoperators.cpp \
-=======
     dependances/coefficients_functions.cpp \
     dependances/dependances.cpp \
->>>>>>> dependances_branch
     dependances/errors.cpp \
     filereader/filereader.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-<<<<<<< HEAD
+    GraphWindow/GraphObject/graphobjects.h \
+    GraphWindow/graphwindow.h \
     dataTableDialog/datatabledialog.h \
     dataTableDialog/vecOperators/vecoperators.h \
-=======
     dependances/coefficients_functions.h \
     dependances/dependances.h \
->>>>>>> dependances_branch
     dependances/errors.h \
     filereader/filereader.h \
     mainwindow.h
 
 FORMS += \
+    GraphWindow/graphwindow.ui \
     dataTableDialog/datatabledialog.ui \
     mainwindow.ui
 
