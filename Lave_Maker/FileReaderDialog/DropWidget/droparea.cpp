@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -53,6 +53,8 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 
+#define DISPLAYED_TEXT "<drag and drop file here> \n or use \n <menu: File -> Open>"
+
 //! [DropArea constructor]
 DropArea::DropArea(QWidget *parent)
     : QLabel(parent)
@@ -69,11 +71,11 @@ DropArea::DropArea(QWidget *parent)
 //! [dragEnterEvent() function]
 void DropArea::dragEnterEvent(QDragEnterEvent *event)
 {
-    setText(tr("<drop content>"));
+    setText(tr(DISPLAYED_TEXT));
     setBackgroundRole(QPalette::Highlight);
 
     event->acceptProposedAction();
-    emit changed(event->mimeData());
+    emit changed(event->mimeData()->text());
 }
 //! [dragEnterEvent() function]
 
@@ -91,21 +93,11 @@ void DropArea::dropEvent(QDropEvent *event)
 //! [dropEvent() function part1]
 
 //! [dropEvent() function part2]
-    if (mimeData->hasImage()) {
-        setPixmap(qvariant_cast<QPixmap>(mimeData->imageData()));
-    } else if (mimeData->hasHtml()) {
-        setText(mimeData->html());
-        setTextFormat(Qt::RichText);
-    } else if (mimeData->hasText()) {
+    if (mimeData->hasText()) {
         setText(mimeData->text());
         setTextFormat(Qt::PlainText);
-    } else if (mimeData->hasUrls()) {
-        QList<QUrl> urlList = mimeData->urls();
-        QString text;
-        for (int i = 0; i < urlList.size() && i < 32; ++i)
-            text += urlList.at(i).path() + QLatin1Char('\n');
-        setText(text);
-    } else {
+    }
+    else {
         setText(tr("Cannot display data"));
     }
 //! [dropEvent() function part2]
@@ -127,9 +119,7 @@ void DropArea::dragLeaveEvent(QDragLeaveEvent *event)
 //! [clear() function]
 void DropArea::clear()
 {
-    setText(tr("<drop content>"));
+    setText(tr(DISPLAYED_TEXT));
     setBackgroundRole(QPalette::Dark);
-
-    emit changed();
 }
 //! [clear() function]

@@ -3,7 +3,6 @@
 std::vector<float> linear_coef_method(const std::map<float, float>& data)
 {
     std::vector<float> answer;
-
     size_t n = data.size();
     float mean_y = 0;
     float mean_x = 0;
@@ -16,11 +15,6 @@ std::vector<float> linear_coef_method(const std::map<float, float>& data)
         mean_xy += it->first * it->second;
         mean_x2 += it->first * it->first;
     }
-
-    /*mean_y /= n;
-    mean_x /= n;
-    mean_xy /= n;
-    mean_x2 /= n;*/
 
     float a = (n*mean_xy - (mean_x*mean_y)) / (n*mean_x2 - (mean_x*mean_x));
     float b = (mean_y - (a * mean_x))/n;

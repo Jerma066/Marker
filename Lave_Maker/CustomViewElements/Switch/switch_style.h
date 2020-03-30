@@ -14,8 +14,8 @@
  * GNU General Public License for more details.
 */
 
-#ifndef STYLE_H
-#define STYLE_H
+#ifndef SWITCH_STYLE_H
+#define SWITCH_STYLE_H
 
 #include <QtCore/qeasingcurve.h>
 #include <QPixmap>
@@ -128,4 +128,4 @@ namespace Style {
 
 } // namespace Style
 
-#endif // STYLE_H
+#endif // SWITCH_STYLE_H

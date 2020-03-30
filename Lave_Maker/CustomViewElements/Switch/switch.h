@@ -19,7 +19,7 @@
 
 #include <QtWidgets>
 #include <QStyle>
-#include "style.h"
+#include "switch_style.h"
 
 class Animator : public QVariantAnimation {
     Q_OBJECT

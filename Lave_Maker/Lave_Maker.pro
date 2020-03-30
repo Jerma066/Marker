@@ -17,6 +17,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CustomViewElements/Switch/switch.cpp \
+    FileReaderDialog/DropWidget/droparea.cpp \
+    FileReaderDialog/filereaderdialog.cpp \
     GraphWindow/GraphObject/graphobjects.cpp \
     GraphWindow/graphwindow.cpp \
     dataTableDialog/datatabledialog.cpp \
@@ -29,6 +32,10 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    CustomViewElements/Switch/switch.h \
+    CustomViewElements/Switch/switch_style.h \
+    FileReaderDialog/DropWidget/droparea.h \
+    FileReaderDialog/filereaderdialog.h \
     GraphWindow/GraphObject/graphobjects.h \
     GraphWindow/graphwindow.h \
     dataTableDialog/datatabledialog.h \
@@ -40,6 +47,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    FileReaderDialog/filereaderdialog.ui \
     GraphWindow/graphwindow.ui \
     dataTableDialog/datatabledialog.ui \
     mainwindow.ui
@@ -48,3 +56,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

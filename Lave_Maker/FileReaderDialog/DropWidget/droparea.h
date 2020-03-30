@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -69,7 +69,7 @@ public slots:
     void clear();
 
 signals:
-    void changed(const QMimeData *mimeData = nullptr);
+    void changed(const QString path);
 //! [DropArea header part1]
 
 //! [DropArea header part2]

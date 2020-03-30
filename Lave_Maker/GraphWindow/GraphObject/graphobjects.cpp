@@ -1,5 +1,13 @@
 ﻿#include "graphobjects.h"
 
+Point::Point():
+    x(0),
+    y(0),
+    x_error(0),
+    y_error(0)
+{
+}
+
 Point::Point(float x, float y, float x_error = 0, float y_error = 0):
     x(x),
     y(y),
@@ -10,9 +18,11 @@ Point::Point(float x, float y, float x_error = 0, float y_error = 0):
 
 GraphObjects::GraphObjects(std::vector<float> x_values, std::vector<float> y_values,
                            std::vector<float> x_errors, std::vector<float> y_errors,
-                           std::vector<float> coeffs):
-    _coefficients(coeffs)
+                           std::vector<float> coeffs)
 {
+    _coefficients = coeffs;
+    _equation_str = MakeStrEquetion(coeffs);
+
     if(x_values.size() == y_values.size()){
         _points_values.resize(x_values.size());
         x_errors.resize(x_values.size());
@@ -38,4 +48,15 @@ GraphObjects::GraphObjects(std::vector<float> x_values, std::vector<float> y_val
     else{
         //TODO: обработать поведение при неккореткных полученных данных
     }
+}
+
+//Служебные функции
+QString MakeStrEquetion(const std::vector<float>& coeffs)
+{
+    QString result = "y = ";
+    for(auto coef = coeffs.begin(); coef != coeffs.end(); coef++){
+        int degree = coeffs.end() - coef;
+        result += QString::number(*coef) + "^" + QString::number(degree) ;
+    }
+    return result;
 }

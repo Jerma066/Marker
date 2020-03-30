@@ -4,9 +4,11 @@
 #include <functional>
 #include <vector>
 #include <math.h>
+#include <QString>
 
 class Point{
 public:
+    Point();
     Point(float x, float y, float x_error, float y_error);
     ~Point() = default;
 
@@ -32,6 +34,10 @@ private:
    std::vector<float> _coefficients;
    std::vector<Point> _points_values;
    std::function<float (float)> _dependance;
+   QString _equation_str;
 };
+
+//Служебные функции
+QString MakeStrEquetion(const std::vector<float>& coeffs);
 
 #endif // GRAPHOBJECTS_H
