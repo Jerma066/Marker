@@ -211,8 +211,9 @@ bool IsDigitalOnly(QString str)
 
 
 // Общая функция чтения файлов
-std::shared_ptr<FileReader> ReadFile(QString path, QString suffix, Orientation orintation){
+std::shared_ptr<FileReader> ReadFile(QString path, Orientation orintation){
     std::shared_ptr<FileReader> final_file_descriptor;
+    QString suffix = QFileInfo(path).suffix();
     if(suffix == "xlsx"){
         auto fr = std::make_shared<XLSX_FileReader>(path, orintation);
         readF(fr);

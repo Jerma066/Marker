@@ -3,15 +3,16 @@
 
 #include <QDebug>
 
-FileReaderDialog::FileReaderDialog(QWidget *parent) :
+FileReaderDialog::FileReaderDialog(Orientation orient, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::FileReaderDialog)
+    ui(new Ui::FileReaderDialog),
+    file_orientation(orient)
 {
     ui->setupUi(this);
 
     // Создание области в которую можно скидывать файл с данными
     dropArea = new DropArea;
-    connect(dropArea, &DropArea::changed, this, &FileReaderDialog::getFileName);
+    connect(dropArea, &DropArea::changed, this, &FileReaderDialog::stateFileName);
     ui->drLayout->addWidget(dropArea);
     setWindowTitle(tr("Open data file"));
     setMinimumSize(350, 500);
@@ -40,18 +41,32 @@ FileReaderDialog::~FileReaderDialog()
     delete ui;
 }
 
+// Getters
+QString FileReaderDialog::getFilePath()
+{
+    return file_path;
+}
+
+std::shared_ptr<FileReader> FileReaderDialog::getFileReader()
+{
+    return fileReader;
+}
+
 void FileReaderDialog::OpenFile()
 {
     file_path = QFileDialog::getOpenFileName(this, tr("Open Dialog"), "",
                                                    "XLSX (* .xlsx);;Text Files (*.txt)");
+    dropArea->setText(file_path);
 }
 
-void FileReaderDialog::getFileName(const QString& path)
+void FileReaderDialog::stateFileName(const QString& path)
 {
     file_path = path;
 }
 
 void FileReaderDialog::on_okButton_clicked()
 {
-
+    QFileInfo file_info(file_path);
+    fileReader = ReadFile(file_path, file_orientation);
+    this->accept();
 }

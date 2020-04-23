@@ -2,19 +2,17 @@
 #define FILEREADER_H
 
 #include <QString>
-#include <map>
 #include <QAxObject>
-#include <memory>
 #include <QDebug>
 #include <QObject>
+#include <QFileInfo>
+
 #include <fstream>
 #include <sstream>
+#include <map>
+#include <memory>
 
-enum class Orientation {
-    Vertical,
-    Horizontal,
-    NONE
-};
+#include "genereic/commontypes.h"
 
 class FileReader
 {
@@ -101,7 +99,7 @@ signals:
 };
 
 bool IsDigitalOnly(QString);
-std::shared_ptr<FileReader> ReadFile(QString path, QString suffix, Orientation orientation);
+std::shared_ptr<FileReader> ReadFile(QString path, Orientation orientation);
 void readF(std::shared_ptr<FileReader>);
 
 #endif // FILEREADER_H

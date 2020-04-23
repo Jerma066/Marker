@@ -12,10 +12,11 @@
 #include <map>
 #include <tuple>
 
-#include "filereader/filereader.h"
 #include "FileReaderDialog/filereaderdialog.h"
 #include "dataTableDialog/datatabledialog.h"
+
 #include "CustomViewElements/Switch/switch.h"
+#include "SettingsDialog/settingsdialog.h"
 
 #define AS_KV(x)  #x << " = " << x
 
@@ -37,6 +38,8 @@ public slots:
 
 private slots:
     void on_newProjectButton_clicked();
+    void FileReadingStage(const Settings&);
+    void DataProcessingStage(std::vector<std::vector<float>>&);
 
 private:
     Ui::MainWindow *ui;

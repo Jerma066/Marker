@@ -19,15 +19,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     CustomViewElements/Switch/switch.cpp \
     FileReaderDialog/DropWidget/droparea.cpp \
+    FileReaderDialog/FileReader/filereader.cpp \
     FileReaderDialog/filereaderdialog.cpp \
     GraphWindow/GraphObject/graphobjects.cpp \
     GraphWindow/graphwindow.cpp \
+    SettingsDialog/settingsdialog.cpp \
     dataTableDialog/datatabledialog.cpp \
     dataTableDialog/vecOperators/vecoperators.cpp \
     dependances/coefficients_functions.cpp \
     dependances/dependances.cpp \
     dependances/errors.cpp \
-    filereader/filereader.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -35,20 +36,23 @@ HEADERS += \
     CustomViewElements/Switch/switch.h \
     CustomViewElements/Switch/switch_style.h \
     FileReaderDialog/DropWidget/droparea.h \
+    FileReaderDialog/FileReader/filereader.h \
     FileReaderDialog/filereaderdialog.h \
     GraphWindow/GraphObject/graphobjects.h \
     GraphWindow/graphwindow.h \
+    SettingsDialog/settingsdialog.h \
     dataTableDialog/datatabledialog.h \
     dataTableDialog/vecOperators/vecoperators.h \
     dependances/coefficients_functions.h \
     dependances/dependances.h \
     dependances/errors.h \
-    filereader/filereader.h \
+    genereic/commontypes.h \
     mainwindow.h
 
 FORMS += \
     FileReaderDialog/filereaderdialog.ui \
     GraphWindow/graphwindow.ui \
+    SettingsDialog/settingsdialog.ui \
     dataTableDialog/datatabledialog.ui \
     mainwindow.ui
 

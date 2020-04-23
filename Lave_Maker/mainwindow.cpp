@@ -2,8 +2,8 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     QPixmap markerLogo(":/images/img/MarkerLogo.png");
@@ -41,9 +41,38 @@ void MainWindow::PrintData(std::tuple <QPair<QString, QString>, std::map<float, 
 
 void MainWindow::on_newProjectButton_clicked()
 {
-    auto fr = new FileReaderDialog(this);
-    Q_UNUSED(fr)
+    //Блок вызова диалогового окна
+    SettingsDialog sd(this);
+    if (sd.exec() == QDialog::Accepted)
+    {
+        Settings state_of_project = sd.getSettings();
+        FileReadingStage(state_of_project);
+    }
 }
+
+void MainWindow::FileReadingStage(const Settings& state_of_project)
+{
+    FileReaderDialog frd(state_of_project.data_orientation, this);
+    if (frd.exec() == QDialog::Accepted)
+    {
+        // TODO: Нужно попыпаться использовать move-семантику
+        std::shared_ptr<FileReader> fr = frd.getFileReader();
+        std::vector<std::vector<float>> data = fr->data();
+        DataProcessingStage(data);
+    }
+}
+
+void MainWindow::DataProcessingStage(std::vector<std::vector<float>>& data)
+{
+    dataTableDialog dt(data, this);
+    if (dt.exec() == QDialog::Accepted)
+    {
+        dataTable data = dt.getDataTable();
+        //TODO: дальнейшая обработка данных.
+    }
+}
+
+
 
 /*
 void MainWindow::on_actionOpen_triggered()
