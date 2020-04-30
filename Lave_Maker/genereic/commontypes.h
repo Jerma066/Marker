@@ -18,5 +18,9 @@ enum class ErrorFunctions {
     MAE
 };
 
+typedef std::vector<std::vector<float>> dataTable;
+typedef QPair<std::map<float, float>, std::map<float, QPair<float, float>>> graphhDataFrame;
+typedef std::vector<graphhDataFrame> allGraphsData;
+
 
 #endif // COMMONTYPES_H

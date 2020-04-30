@@ -1,7 +1,7 @@
 QT       += core gui axcontainer
 # Для использования QAxObject добавим axcontainer
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++11
 
@@ -21,14 +21,15 @@ SOURCES += \
     FileReaderDialog/DropWidget/droparea.cpp \
     FileReaderDialog/FileReader/filereader.cpp \
     FileReaderDialog/filereaderdialog.cpp \
-    GraphWindow/GraphObject/graphobjects.cpp \
+    GraphWindow/GraphObject/dependances/coefficients_functions.cpp \
+    GraphWindow/GraphObject/dependances/dependances.cpp \
+    GraphWindow/GraphObject/dependances/errors.cpp \
+    GraphWindow/GraphObject/graphobject.cpp \
     GraphWindow/graphwindow.cpp \
+    GraphWindow/qcustomplot.cpp \
     SettingsDialog/settingsdialog.cpp \
     dataTableDialog/datatabledialog.cpp \
     dataTableDialog/vecOperators/vecoperators.cpp \
-    dependances/coefficients_functions.cpp \
-    dependances/dependances.cpp \
-    dependances/errors.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -38,14 +39,15 @@ HEADERS += \
     FileReaderDialog/DropWidget/droparea.h \
     FileReaderDialog/FileReader/filereader.h \
     FileReaderDialog/filereaderdialog.h \
-    GraphWindow/GraphObject/graphobjects.h \
+    GraphWindow/GraphObject/dependances/coefficients_functions.h \
+    GraphWindow/GraphObject/dependances/dependances.h \
+    GraphWindow/GraphObject/dependances/errors.h \
+    GraphWindow/GraphObject/graphobject.h \
     GraphWindow/graphwindow.h \
+    GraphWindow/qcustomplot.h \
     SettingsDialog/settingsdialog.h \
     dataTableDialog/datatabledialog.h \
     dataTableDialog/vecOperators/vecoperators.h \
-    dependances/coefficients_functions.h \
-    dependances/dependances.h \
-    dependances/errors.h \
     genereic/commontypes.h \
     mainwindow.h
 

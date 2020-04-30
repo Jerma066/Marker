@@ -1,4 +1,4 @@
-﻿#include "graphobjects.h"
+﻿#include "graphobject.h"
 
 Point::Point():
     x(0),
@@ -16,38 +16,50 @@ Point::Point(float x, float y, float x_error = 0, float y_error = 0):
 {
 }
 
-GraphObjects::GraphObjects(std::vector<float> x_values, std::vector<float> y_values,
-                           std::vector<float> x_errors, std::vector<float> y_errors,
-                           std::vector<float> coeffs)
+GraphObject::GraphObject():
+    _dependance([](float x){return x*0;}),
+    _equation_str("")
 {
-    _coefficients = coeffs;
-    _equation_str = MakeStrEquetion(coeffs);
+    _coefficients.clear();
+    _points_values.clear();
+}
 
-    if(x_values.size() == y_values.size()){
-        _points_values.resize(x_values.size());
-        x_errors.resize(x_values.size());
-        y_errors.resize(x_values.size());
+GraphObject::GraphObject(const graphhDataFrame& graphDF)
+{
+    Dependance dep(graphDF.first, linear_coef_method, MSE);
+    _coefficients = dep.getCoeffcients();
+    _dependance = dep.getDependance();
+    _equation_str = MakeStrEquetion(_coefficients);
 
-        for(size_t i = 0; i < x_values.size(); i++){
-            _points_values[i].x = x_values[i];
-            _points_values[i].y = y_values[i];
-            _points_values[i].x_error = x_errors[i];
-            _points_values[i].y_error = y_errors[i];
-        }
-
-        _dependance = [coeffs](float x) {
-            float answer = 0;
-            for(auto coef = coeffs.begin(); coef != coeffs.end(); coef++){
-                int degree = coeffs.end() - coef;
-                answer += *coef * static_cast<float>(pow(x, degree));
-            }
-            return answer;
-        };
-
+    min_x = graphDF.first.begin()->first;
+    max_x = graphDF.first.begin()->second;
+    for(auto it = graphDF.first.begin(); it != graphDF.first.end(); it++){
+        Point ptn(it->first, it->second, graphDF.second.at(it->first).first,
+                  graphDF.second.at(it->first).second);
+        if(ptn.x < min_x) {min_x = ptn.x;}
+        if(ptn.x > max_x) {max_x = ptn.x;}
+        _points_values.push_back(ptn);
     }
-    else{
-        //TODO: обработать поведение при неккореткных полученных данных
-    }
+}
+
+float GraphObject::getMin_x() const
+{
+    return min_x;
+}
+
+float GraphObject::getMax_x() const
+{
+    return max_x;
+}
+
+QString GraphObject::getEquation_str() const
+{
+    return _equation_str;
+}
+
+std::vector<Point> GraphObject::getPoints_values() const
+{
+    return _points_values;
 }
 
 //Служебные функции
@@ -55,8 +67,16 @@ QString MakeStrEquetion(const std::vector<float>& coeffs)
 {
     QString result = "y = ";
     for(auto coef = coeffs.begin(); coef != coeffs.end(); coef++){
-        int degree = coeffs.end() - coef;
-        result += QString::number(*coef) + "^" + QString::number(degree) ;
+        int degree = coeffs.end() - coef - 1;
+        if(degree > 1){
+            result += QString::number(*coef) +"X" + "^" + QString::number(degree) + " + " ;
+        }
+        else if(degree == 1){
+            result += QString::number(*coef) +"X + ";
+        }
+        else{
+            result += QString::number(*coef);
+        }
     }
     return result;
 }

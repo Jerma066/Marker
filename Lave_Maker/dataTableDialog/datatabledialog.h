@@ -17,8 +17,7 @@
 #include <array>
 
 #include "vecOperators/vecoperators.h"
-
-
+#include "genereic/commontypes.h"
 
 class TableDinamicWidgets{
 public:
@@ -36,9 +35,6 @@ namespace Ui {
 class dataTableDialog;
 }
 
-typedef std::vector<std::vector<float>> dataTable;
-typedef QPair<std::map<float, float>, std::map<float, QPair<float, float>>> graphhDataFrame;
-
 class dataTableDialog : public QDialog
 {
     Q_OBJECT
@@ -49,6 +45,7 @@ public:
 
 public:
    dataTable getDataTable();
+   allGraphsData getAllGraphsData();
 
 private slots:
     void on_okButton_clicked();

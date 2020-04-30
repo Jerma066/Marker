@@ -10,7 +10,7 @@ dataTableDialog::dataTableDialog(dataTable& data, QWidget *parent) :
     ui->setupUi(this);
     this->createTableVidget(_data);
     this->setWindowTitle(tr("Date Table"));
-    //connect(ui->okButton, SIGNAL(clicked()), SLOT(accept()));
+    connect(ui->okButton, SIGNAL(clicked()), SLOT(accept()));
 }
 
 dataTableDialog::~dataTableDialog()
@@ -29,6 +29,11 @@ dataTableDialog::~dataTableDialog()
 dataTable dataTableDialog::getDataTable()
 {
     return _data;
+}
+
+allGraphsData dataTableDialog::getAllGraphsData()
+{
+    return allGraphsFrame;
 }
 
 void dataTableDialog::createTableVidget(const dataTable& data)
@@ -76,8 +81,7 @@ void dataTableDialog::createTableVidget(const dataTable& data)
 graphhDataFrame dataTableDialog::createDataFrameObj(const int &index)
 {
     graphhDataFrame ind_gdf;
-    std::vector<int> dat_ind;
-    dat_ind.reserve(4);
+    std::vector<int> dat_ind = {-1, -1, -1, -1};
 
     //Узнали, где лежат интересующие нас данные
     for(auto wid_elem = topTableWidgets.begin();
@@ -103,11 +107,10 @@ graphhDataFrame dataTableDialog::createDataFrameObj(const int &index)
     graphhDataFrame res;
     for(size_t j = 0; j < _data[0].size(); j++ ){
         // TODO: использовать move-семантику
-        float X = _data[dat_ind[0]][j];
-        float Y = _data[dat_ind[1]][j];
-        float X_error = _data[dat_ind[2]][j];
-        float Y_error = _data[dat_ind[3]][j];
-
+        float X = (dat_ind[0] == -1) ? 0 : _data[dat_ind[0]][j];
+        float Y = (dat_ind[1] == -1) ? 0 : _data[dat_ind[1]][j];
+        float X_error = (dat_ind[2] == -1) ? 0 : _data[dat_ind[2]][j];
+        float Y_error = (dat_ind[3] == -1) ? 0 : _data[dat_ind[3]][j];
         res.first[X] = Y;
         res.second[X] = qMakePair(X_error, Y_error);
     }
@@ -119,26 +122,13 @@ void dataTableDialog::TableElementChanged(int row, int column)
 {
     _data[static_cast<size_t>(column)][static_cast<size_t>(row - 1)] =
             ui->dataTableWidget->item(row, column)->text().toFloat();
-
-    qDebug() << _data[1][2];
-    qDebug() << file_data[1][2];
 }
 
 void dataTableDialog::on_okButton_clicked()
 {
     // TODO: Проверка корректности заполненых full_label-ов
     // TODO: Дальнешая обработка данных
-    std::vector<QString> labels;
-    labels.reserve(topTableWidgets.size());
-
-    /*
-    for(auto wid_elem = topTableWidgets.begin();
-        wid_elem < topTableWidgets.end(); wid_elem++)
-    {
-        QString full_label = wid_elem->wid_comboBox->currentText() + QString::number(wid_elem->wid_spinBox->value());
-        labels.push_back(full_label);
-    }
-    */
+    std::vector<QString> labels(topTableWidgets.size());
 
     // Узнаем, какие есть индексы данных
     std::set<int> indices;
@@ -148,9 +138,20 @@ void dataTableDialog::on_okButton_clicked()
         indices.insert(QString::number(wid_elem->wid_spinBox->value()).toInt());
     }
     // Для каждого индекса формируем датасет
+    allGraphsFrame.clear();
     for (auto it = indices.begin(); it !=  indices.end(); it++) {
-        qDebug() << *it;
+        //TODO: попробовать использовать тут move-семантику, если это допустимо
+        graphhDataFrame dat = createDataFrameObj(*it);
+        /*
+        qDebug() << dat.first.size();
+        for(auto it = dat.first.begin(); it != dat.first.end(); it++){
+            qDebug() << "{" << it->first << " : " << it->second << "}";
+        }
+        */
+        allGraphsFrame.push_back(dat);
     }
+
+
 
     // Проверка изменений данных
     // TODO: высплывающее диалоговое окно оповещающее об

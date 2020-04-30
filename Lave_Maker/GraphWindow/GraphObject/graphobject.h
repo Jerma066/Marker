@@ -1,6 +1,9 @@
 ﻿#ifndef GRAPHOBJECTS_H
 #define GRAPHOBJECTS_H
 
+#include "genereic/commontypes.h"
+#include "dependances/dependances.h"
+
 #include <functional>
 #include <vector>
 #include <math.h>
@@ -19,22 +22,34 @@ public:
     float y_error;
 };
 
-class GraphObjects
+class GraphObject
 {
 public:
-    GraphObjects(std::vector<float> x_values,
+    GraphObject();
+    GraphObject(const graphhDataFrame&);
+    /*
+    GraphObject(std::vector<float> x_values,
                  std::vector<float> y_values,
                  std::vector<float> x_errors,
                  std::vector<float> y_errors,
                  std::vector<float> coefficients);
+    */
+    ~GraphObject(){};
 
-    ~GraphObjects();
+    float getMin_x() const;
+    float getMax_x() const;
+    QString getEquation_str() const;
+
+public:
+    std::function<float (float)> _dependance;
+    std::vector<Point> getPoints_values() const;
 
 private:
-   std::vector<float> _coefficients;
-   std::vector<Point> _points_values;
-   std::function<float (float)> _dependance;
-   QString _equation_str;
+    std::vector<float> _coefficients;
+    std::vector<Point> _points_values;
+    float min_x;
+    float max_x;
+    QString _equation_str;
 };
 
 //Служебные функции

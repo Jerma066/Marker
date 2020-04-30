@@ -1,4 +1,4 @@
-/***************************************************************************
+﻿/***************************************************************************
 **                                                                        **
 **  QCustomPlot, an easy to use, modern plotting widget for Qt            **
 **  Copyright (C) 2011-2018 Emanuel Eichhammer                            **
@@ -13720,7 +13720,7 @@ QCPGraph *QCustomPlot::addGraph(QCPAxis *keyAxis, QCPAxis *valueAxis)
     qDebug() << Q_FUNC_INFO << "passed keyAxis or valueAxis doesn't have this QCustomPlot as parent";
     return 0;
   }
-  
+
   QCPGraph *newGraph = new QCPGraph(keyAxis, valueAxis);
   newGraph->setName(QLatin1String("Graph ")+QString::number(mGraphs.size()));
   return newGraph;

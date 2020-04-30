@@ -12,11 +12,11 @@
 #include <map>
 #include <tuple>
 
+#include "CustomViewElements/Switch/switch.h"
 #include "FileReaderDialog/filereaderdialog.h"
 #include "dataTableDialog/datatabledialog.h"
-
-#include "CustomViewElements/Switch/switch.h"
 #include "SettingsDialog/settingsdialog.h"
+#include "GraphWindow/graphwindow.h"
 
 #define AS_KV(x)  #x << " = " << x
 
@@ -43,7 +43,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    //dataTableDialog* dt;
     Switch* style_switch;
+    GraphWindow* gr_win;
+
 };
 #endif // MAINWINDOW_H

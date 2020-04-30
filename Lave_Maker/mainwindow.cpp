@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    delete gr_win;
     delete style_switch;
     delete ui;
 }
@@ -55,7 +56,7 @@ void MainWindow::FileReadingStage(const Settings& state_of_project)
     FileReaderDialog frd(state_of_project.data_orientation, this);
     if (frd.exec() == QDialog::Accepted)
     {
-        // TODO: Нужно попыпаться использовать move-семантику
+        // TODO: Нужно попыпаться использовать move-семантику, если это допустимо
         std::shared_ptr<FileReader> fr = frd.getFileReader();
         std::vector<std::vector<float>> data = fr->data();
         DataProcessingStage(data);
@@ -67,34 +68,10 @@ void MainWindow::DataProcessingStage(std::vector<std::vector<float>>& data)
     dataTableDialog dt(data, this);
     if (dt.exec() == QDialog::Accepted)
     {
-        dataTable data = dt.getDataTable();
-        //TODO: дальнейшая обработка данных.
+        allGraphsData gdata = dt.getAllGraphsData();
+        gr_win = new GraphWindow(gdata, this);
     }
 }
-
-
-
-/*
-void MainWindow::on_actionOpen_triggered()
-{
-
-    QString path = QFileDialog::getOpenFileName(nullptr, tr("Open Dialog"), "", "XLSX (* .xlsx);;Text Files (*.txt)");
-    QFileInfo file_info(path);
-    QString suffix = file_info.suffix();
-
-    std::shared_ptr<FileReader> fr = ReadFile(path, suffix, Orientation::Vertical);
-
-    std::vector<std::vector<float>> test = fr->data();
-
-    //Блок вызова диалогового окна
-    dataTableDialog dt(test, this);
-    if (dt.exec() == QDialog::Accepted)
-    {
-        dataTable data = dt.getDataTable();
-        //TODO: дальнейшая обработка данных.
-    }
-}
-*/
 
 //Style settings
 void MainWindow::setStyle(int state)
