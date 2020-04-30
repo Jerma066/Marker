@@ -75,7 +75,8 @@ void DropArea::dragEnterEvent(QDragEnterEvent *event)
     setBackgroundRole(QPalette::Highlight);
 
     event->acceptProposedAction();
-    emit changed(event->mimeData()->text());
+    QString path = event->mimeData()->text();
+    emit changed(path.remove(0, path.indexOf("/")+3));
 }
 //! [dragEnterEvent() function]
 

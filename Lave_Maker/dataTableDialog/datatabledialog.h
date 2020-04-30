@@ -9,10 +9,16 @@
 #include <QString>
 #include <QStringList>
 #include <QHBoxLayout>
+
 #include <vector>
 #include <sstream>
+#include <set>
+#include <map>
+#include <array>
 
 #include "vecOperators/vecoperators.h"
+
+
 
 class TableDinamicWidgets{
 public:
@@ -31,6 +37,7 @@ class dataTableDialog;
 }
 
 typedef std::vector<std::vector<float>> dataTable;
+typedef QPair<std::map<float, float>, std::map<float, QPair<float, float>>> graphhDataFrame;
 
 class dataTableDialog : public QDialog
 {
@@ -49,6 +56,7 @@ private slots:
 
 private:
     void createTableVidget(const dataTable&);
+    graphhDataFrame createDataFrameObj(const int& index);
 
 private:
     Ui::dataTableDialog *ui;
@@ -56,6 +64,7 @@ private:
     std::vector<QString> _labels;
     const dataTable file_data;
     QVector<TableDinamicWidgets> topTableWidgets;
+    std::vector<graphhDataFrame> allGraphsFrame;
 };
 
 //Служебные функции

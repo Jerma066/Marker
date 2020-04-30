@@ -14,7 +14,7 @@ FileReaderDialog::FileReaderDialog(Orientation orient, QWidget *parent) :
     dropArea = new DropArea;
     connect(dropArea, &DropArea::changed, this, &FileReaderDialog::stateFileName);
     ui->drLayout->addWidget(dropArea);
-    setWindowTitle(tr("Open data file"));
+    this->setWindowTitle(tr("Open data file"));
     setMinimumSize(350, 500);
 
     // Создание menuBar
@@ -57,11 +57,13 @@ void FileReaderDialog::OpenFile()
     file_path = QFileDialog::getOpenFileName(this, tr("Open Dialog"), "",
                                                    "XLSX (* .xlsx);;Text Files (*.txt)");
     dropArea->setText(file_path);
+    qDebug() << file_path;
 }
 
 void FileReaderDialog::stateFileName(const QString& path)
 {
     file_path = path;
+    qDebug() << file_path;
 }
 
 void FileReaderDialog::on_okButton_clicked()

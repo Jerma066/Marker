@@ -9,7 +9,8 @@ dataTableDialog::dataTableDialog(dataTable& data, QWidget *parent) :
 {
     ui->setupUi(this);
     this->createTableVidget(_data);
-    connect(ui->okButton, SIGNAL(clicked()), SLOT(accept()));
+    this->setWindowTitle(tr("Date Table"));
+    //connect(ui->okButton, SIGNAL(clicked()), SLOT(accept()));
 }
 
 dataTableDialog::~dataTableDialog()
@@ -72,6 +73,48 @@ void dataTableDialog::createTableVidget(const dataTable& data)
             this, SLOT(TableElementChanged(int, int)));
 }
 
+graphhDataFrame dataTableDialog::createDataFrameObj(const int &index)
+{
+    graphhDataFrame ind_gdf;
+    std::vector<int> dat_ind;
+    dat_ind.reserve(4);
+
+    //Узнали, где лежат интересующие нас данные
+    for(auto wid_elem = topTableWidgets.begin();
+        wid_elem < topTableWidgets.end(); wid_elem++)
+    {
+        int ind = wid_elem - topTableWidgets.begin();
+        if(QString::number(wid_elem->wid_spinBox->value()).toInt() == index){
+            if(wid_elem->wid_comboBox->currentText() == "X"){
+                dat_ind[0] = ind;
+            }
+            else if(wid_elem->wid_comboBox->currentText() == "Y"){
+                dat_ind[1] = ind;
+            }
+            else if(wid_elem->wid_comboBox->currentText() == "X_error"){
+                dat_ind[2] = ind;
+            }
+            else if(wid_elem->wid_comboBox->currentText() == "Y_error"){
+                dat_ind[3] = ind;
+            }
+        }
+    }
+
+    graphhDataFrame res;
+    for(size_t j = 0; j < _data[0].size(); j++ ){
+        // TODO: использовать move-семантику
+        float X = _data[dat_ind[0]][j];
+        float Y = _data[dat_ind[1]][j];
+        float X_error = _data[dat_ind[2]][j];
+        float Y_error = _data[dat_ind[3]][j];
+
+        res.first[X] = Y;
+        res.second[X] = qMakePair(X_error, Y_error);
+    }
+
+    return res;
+}
+
 void dataTableDialog::TableElementChanged(int row, int column)
 {
     _data[static_cast<size_t>(column)][static_cast<size_t>(row - 1)] =
@@ -85,10 +128,28 @@ void dataTableDialog::on_okButton_clicked()
 {
     // TODO: Проверка корректности заполненых full_label-ов
     // TODO: Дальнешая обработка данных
+    std::vector<QString> labels;
+    labels.reserve(topTableWidgets.size());
+
+    /*
     for(auto wid_elem = topTableWidgets.begin();
         wid_elem < topTableWidgets.end(); wid_elem++)
     {
         QString full_label = wid_elem->wid_comboBox->currentText() + QString::number(wid_elem->wid_spinBox->value());
+        labels.push_back(full_label);
+    }
+    */
+
+    // Узнаем, какие есть индексы данных
+    std::set<int> indices;
+    for(auto wid_elem = topTableWidgets.begin();
+        wid_elem < topTableWidgets.end(); wid_elem++)
+    {
+        indices.insert(QString::number(wid_elem->wid_spinBox->value()).toInt());
+    }
+    // Для каждого индекса формируем датасет
+    for (auto it = indices.begin(); it !=  indices.end(); it++) {
+        qDebug() << *it;
     }
 
     // Проверка изменений данных
