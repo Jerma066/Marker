@@ -45,6 +45,7 @@ private:
     Ui::MainWindow *ui;
     Switch* style_switch;
     GraphWindow* gr_win;
+    Settings cur_state_of_project;
 
 };
 #endif // MAINWINDOW_H

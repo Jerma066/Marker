@@ -21,10 +21,13 @@ SOURCES += \
     FileReaderDialog/DropWidget/droparea.cpp \
     FileReaderDialog/FileReader/filereader.cpp \
     FileReaderDialog/filereaderdialog.cpp \
+    GraphWindow/AxisNameDialog/axisnamedialog.cpp \
+    GraphWindow/AxisRangeDialog/axisrangedialog.cpp \
     GraphWindow/GraphObject/dependances/coefficients_functions.cpp \
     GraphWindow/GraphObject/dependances/dependances.cpp \
     GraphWindow/GraphObject/dependances/errors.cpp \
     GraphWindow/GraphObject/graphobject.cpp \
+    GraphWindow/TitleDialog/titledialog.cpp \
     GraphWindow/graphwindow.cpp \
     GraphWindow/qcustomplot.cpp \
     SettingsDialog/settingsdialog.cpp \
@@ -39,10 +42,13 @@ HEADERS += \
     FileReaderDialog/DropWidget/droparea.h \
     FileReaderDialog/FileReader/filereader.h \
     FileReaderDialog/filereaderdialog.h \
+    GraphWindow/AxisNameDialog/axisnamedialog.h \
+    GraphWindow/AxisRangeDialog/axisrangedialog.h \
     GraphWindow/GraphObject/dependances/coefficients_functions.h \
     GraphWindow/GraphObject/dependances/dependances.h \
     GraphWindow/GraphObject/dependances/errors.h \
     GraphWindow/GraphObject/graphobject.h \
+    GraphWindow/TitleDialog/titledialog.h \
     GraphWindow/graphwindow.h \
     GraphWindow/qcustomplot.h \
     SettingsDialog/settingsdialog.h \
@@ -53,6 +59,9 @@ HEADERS += \
 
 FORMS += \
     FileReaderDialog/filereaderdialog.ui \
+    GraphWindow/AxisNameDialog/axisnamedialog.ui \
+    GraphWindow/AxisRangeDialog/axisrangedialog.ui \
+    GraphWindow/TitleDialog/titledialog.ui \
     GraphWindow/graphwindow.ui \
     SettingsDialog/settingsdialog.ui \
     dataTableDialog/datatabledialog.ui \

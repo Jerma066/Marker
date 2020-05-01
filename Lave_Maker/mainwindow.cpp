@@ -46,8 +46,8 @@ void MainWindow::on_newProjectButton_clicked()
     SettingsDialog sd(this);
     if (sd.exec() == QDialog::Accepted)
     {
-        Settings state_of_project = sd.getSettings();
-        FileReadingStage(state_of_project);
+        cur_state_of_project = sd.getSettings();
+        FileReadingStage(cur_state_of_project);
     }
 }
 
@@ -69,7 +69,8 @@ void MainWindow::DataProcessingStage(std::vector<std::vector<float>>& data)
     if (dt.exec() == QDialog::Accepted)
     {
         allGraphsData gdata = dt.getAllGraphsData();
-        gr_win = new GraphWindow(gdata, this);
+        gr_win = new GraphWindow(gdata, cur_state_of_project.approximation_method,
+                                 cur_state_of_project.error_function, this);
     }
 }
 

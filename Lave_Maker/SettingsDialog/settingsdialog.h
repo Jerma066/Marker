@@ -5,12 +5,6 @@
 
 #include "genereic/commontypes.h"
 
-struct Settings{
-    Orientation data_orientation;
-    ApproximationMethod approximation_method;
-    ErrorFunctions error_function;
-};
-
 namespace Ui {
 class SettingsDialog;
 }
@@ -39,6 +33,7 @@ private:
     QMap<QString, ApproximationMethod> approximationMethods;
     QMap<QString, ErrorFunctions> errorFunctions;
     Settings current_settings;
+
 };
 
 #endif // SETTINGSDIALOG_H

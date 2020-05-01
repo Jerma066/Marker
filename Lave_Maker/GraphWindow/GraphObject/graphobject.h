@@ -26,7 +26,8 @@ class GraphObject
 {
 public:
     GraphObject();
-    GraphObject(const graphhDataFrame&);
+    GraphObject(const graphhDataFrame&, const ApproximationMethod& a_m,
+                const ErrorFunctions& e_f);
     /*
     GraphObject(std::vector<float> x_values,
                  std::vector<float> y_values,

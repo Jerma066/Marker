@@ -33,10 +33,40 @@
     <property name="title">
      <string>Graphs</string>
     </property>
+    <addaction name="actionClear_all_plots"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionSet_title_of_the_graphs"/>
+    <addaction name="actionSet_axes_names"/>
+    <addaction name="actionSet_axes_ranges"/>
+   </widget>
+   <addaction name="menuView"/>
    <addaction name="menugraphs"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSet_title_of_the_graphs">
+   <property name="text">
+    <string>Set title of the graphs</string>
+   </property>
+  </action>
+  <action name="actionSet_axes_names">
+   <property name="text">
+    <string>Set axes names</string>
+   </property>
+  </action>
+  <action name="actionSet_axes_ranges">
+   <property name="text">
+    <string>Set axes ranges</string>
+   </property>
+  </action>
+  <action name="actionClear_all_plots">
+   <property name="text">
+    <string>Clear all plots</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

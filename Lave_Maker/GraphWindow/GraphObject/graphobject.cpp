@@ -24,9 +24,26 @@ GraphObject::GraphObject():
     _points_values.clear();
 }
 
-GraphObject::GraphObject(const graphhDataFrame& graphDF)
+GraphObject::GraphObject(const graphhDataFrame& graphDF, const ApproximationMethod& a_m,
+                         const ErrorFunctions& e_f)
 {
-    Dependance dep(graphDF.first, linear_coef_method, MSE);
+    std::function<std::vector<float> (const std::map<float, float>&)> coef_meth;
+    std::function<float( std::function<float(float x)>, std::map<float, float> )> error_func;
+
+    switch (a_m){
+    case ApproximationMethod::Linnear:
+        coef_meth = linear_coef_method;
+        break;
+    }
+    switch (e_f){
+    case ErrorFunctions::MSE:
+        error_func = MSE;
+        break;
+    case ErrorFunctions::MAE:
+        error_func = MAE;
+        break;
+    }
+    Dependance dep(graphDF.first, coef_meth, error_func);
     _coefficients = dep.getCoeffcients();
     _dependance = dep.getDependance();
     _equation_str = MakeStrEquetion(_coefficients);

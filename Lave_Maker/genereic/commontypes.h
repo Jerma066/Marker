@@ -18,6 +18,12 @@ enum class ErrorFunctions {
     MAE
 };
 
+struct Settings{
+    Orientation data_orientation;
+    ApproximationMethod approximation_method;
+    ErrorFunctions error_function;
+};
+
 typedef std::vector<std::vector<float>> dataTable;
 typedef QPair<std::map<float, float>, std::map<float, QPair<float, float>>> graphhDataFrame;
 typedef std::vector<graphhDataFrame> allGraphsData;
