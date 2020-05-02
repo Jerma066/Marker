@@ -1,4 +1,5 @@
 ﻿#include "graphobject.h"
+#include <QDebug>
 
 Point::Point():
     x(0),
@@ -49,7 +50,7 @@ GraphObject::GraphObject(const graphhDataFrame& graphDF, const ApproximationMeth
     _equation_str = MakeStrEquetion(_coefficients);
 
     min_x = graphDF.first.begin()->first;
-    max_x = graphDF.first.begin()->second;
+    max_x = graphDF.first.begin()->first;
     for(auto it = graphDF.first.begin(); it != graphDF.first.end(); it++){
         Point ptn(it->first, it->second, graphDF.second.at(it->first).first,
                   graphDF.second.at(it->first).second);

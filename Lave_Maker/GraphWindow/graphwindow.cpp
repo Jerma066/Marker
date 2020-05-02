@@ -28,6 +28,10 @@ GraphWindow::GraphWindow(allGraphsData dt, ApproximationMethod a_m,
 
 GraphWindow::~GraphWindow()
 {
+    for(auto it = error_bars.begin(); it != error_bars.end(); it++){
+        delete *it;
+    }
+    error_bars.clear();
     delete title;
     delete customPlot;
     delete ui;
@@ -76,8 +80,17 @@ void GraphWindow::addNewGraph(const graphhDataFrame& gdf, const ApproximationMet
     customPlot->graph(_graphs.size())->addData(x_points, y_points);
     customPlot->graph(_graphs.size())->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 4));
     customPlot->graph(_graphs.size())->setLineStyle(QCPGraph::lsNone);
-    _graphs.push_back(qMakePair(go, _graphs.size()));
 
+    // Отрисовка планок погрешностей
+    QVector<double> x_error_bars;
+    QVector<double> y_error_bars;
+    for (int i = 0; i < x_points.size(); i++){
+        x_error_bars.push_back(go.getPoints_values()[i].x_error);
+        y_error_bars.push_back(go.getPoints_values()[i].y_error);
+    }
+    error_bars.push_back(addErrorBars(_graphs.size(), QCPErrorBars::ErrorType::etKeyError, x_error_bars));
+    error_bars.push_back(addErrorBars(_graphs.size(), QCPErrorBars::ErrorType::etValueError, y_error_bars));
+    _graphs.push_back(qMakePair(go, _graphs.size()));
     customPlot->replot();
 }
 
@@ -127,4 +140,16 @@ void GraphWindow::on_actionClear_all_plots_triggered()
 {
     customPlot->clearGraphs();
     customPlot->replot();
+}
+
+QCPErrorBars* GraphWindow::addErrorBars(const size_t& g_ind, const QCPErrorBars::ErrorType& err_type,
+                               const QVector<double>& error_bars)
+{
+    QCPErrorBars* value_errorBars = new QCPErrorBars(customPlot->xAxis, customPlot->yAxis);
+    value_errorBars->removeFromLegend();
+    value_errorBars->setAntialiased(false);
+    value_errorBars->setErrorType(err_type);
+    value_errorBars->setDataPlottable(customPlot->graph(g_ind));
+    value_errorBars->setData(error_bars);
+    return value_errorBars;
 }
