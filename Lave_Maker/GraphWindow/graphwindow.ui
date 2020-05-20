@@ -42,6 +42,7 @@
     <addaction name="actionSet_title_of_the_graphs"/>
     <addaction name="actionSet_axes_names"/>
     <addaction name="actionSet_axes_ranges"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuView"/>
    <addaction name="menugraphs"/>

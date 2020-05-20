@@ -38,4 +38,14 @@ void AxisRangeDialog::setY_range(const QPair<double, double>& range)
     ui->yToLineEdit->setText(QString::number(range.second));
 }
 
+QPair<double, double> AxisRangeDialog::getX_range()
+{
+    return x_range;
+}
+
+QPair<double, double> AxisRangeDialog::getY_range()
+{
+    return y_range;
+}
+
 

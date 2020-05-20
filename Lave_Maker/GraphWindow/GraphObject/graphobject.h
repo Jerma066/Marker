@@ -39,6 +39,7 @@ public:
 
     float getMin_x() const;
     float getMax_x() const;
+    double get_err() const;
     QString getEquation_str() const;
 
 public:
@@ -51,6 +52,7 @@ private:
     float min_x;
     float max_x;
     QString _equation_str;
+    double err_of_approx;
 };
 
 //Служебные функции

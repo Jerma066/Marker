@@ -58,6 +58,8 @@ GraphObject::GraphObject(const graphhDataFrame& graphDF, const ApproximationMeth
         if(ptn.x > max_x) {max_x = ptn.x;}
         _points_values.push_back(ptn);
     }
+
+    err_of_approx = dep.getErrorValue();
 }
 
 float GraphObject::getMin_x() const
@@ -68,6 +70,11 @@ float GraphObject::getMin_x() const
 float GraphObject::getMax_x() const
 {
     return max_x;
+}
+
+double GraphObject::get_err() const
+{
+    return err_of_approx;
 }
 
 QString GraphObject::getEquation_str() const
@@ -87,10 +94,10 @@ QString MakeStrEquetion(const std::vector<float>& coeffs)
     for(auto coef = coeffs.begin(); coef != coeffs.end(); coef++){
         int degree = coeffs.end() - coef - 1;
         if(degree > 1){
-            result += QString::number(*coef) +"X" + "^" + QString::number(degree) + " + " ;
+            result += QString::number(*coef) +"x" + "^" + QString::number(degree) + " + " ;
         }
         else if(degree == 1){
-            result += QString::number(*coef) +"X + ";
+            result += QString::number(*coef) +"x + ";
         }
         else{
             result += QString::number(*coef);

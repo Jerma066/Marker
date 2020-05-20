@@ -17,6 +17,9 @@ public:
 
     void setX_range(const QPair<double, double> &value);
     void setY_range(const QPair<double, double> &value);
+    QPair<double, double> getX_range();
+    QPair<double, double> getY_range();
+
 
 signals:
     void axesRangesChanged(double, double, double, double);
